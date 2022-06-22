@@ -1,4 +1,4 @@
-import cakesRepository from "../repositories/cakesRepository.js";
+import cakesRepository from "../repositories/cakesRepository.js"
 
 export async function createCakes(req, res) {
     const cake = req.body;
