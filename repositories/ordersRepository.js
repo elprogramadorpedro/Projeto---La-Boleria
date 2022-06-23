@@ -8,8 +8,22 @@ async function createOrder(clientId, cakeId, quantity, totalPrice, today) {
     [clientId, cakeId, quantity, today, totalPrice]);
 }
 
+async function getOrders() {
+  return db.query(`SELECT * FROM orders`);
+}
+
+async function getOrdersByDate(date) {
+  return db.query(`SELECT * FROM orders WHERE "createdAt" = $1`, [date]);
+}
+
+async function getOrdersById(id) {
+  return db.query(`SELECT * FROM orders WHERE id = $1`, [id]);
+}
 const ordersRepository = {
-    createOrder
+    createOrder,
+    getOrders,
+    getOrdersByDate,
+    getOrdersById
 };
     
 export default ordersRepository;
