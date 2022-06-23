@@ -1,4 +1,5 @@
 import clientsRepository from '../repositories/clientsRepository.js'
+import ordersRepository from '../repositories/ordersRepository.js';
 
 export async function createClients(req, res) {
     const client = req.body;
@@ -15,3 +16,18 @@ export async function createClients(req, res) {
     }
 }
 
+export async function getOrderByClient(req, res) {
+  const { id } = req.params;
+
+  try {
+    const orders = await ordersRepository.getOrdersByClient(id);
+    if(orders.rowCount === 0){
+      return res.sendStatus(404); // not found
+    }
+    
+    res.send(orders.rows)
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500); // server error
+  }
+}

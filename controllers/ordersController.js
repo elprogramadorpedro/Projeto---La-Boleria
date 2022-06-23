@@ -81,7 +81,7 @@ export async function getOrderById(req, res) {
   try {
     const orders = await ordersRepository.getOrdersById(id);
     if(orders.rowCount === 0){
-      return res.sendStatus(401); // not found
+      return res.sendStatus(404); // not found
     }
     const order = orders.rows;
     //Cake
@@ -108,3 +108,4 @@ export async function getOrderById(req, res) {
     return res.sendStatus(500); // server error
   }
 }
+

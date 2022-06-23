@@ -19,11 +19,16 @@ async function getOrdersByDate(date) {
 async function getOrdersById(id) {
   return db.query(`SELECT * FROM orders WHERE id = $1`, [id]);
 }
+
+async function getOrdersByClient(clientId) {
+  return db.query(`SELECT * FROM orders WHERE "clientId" = $1`, [clientId]);
+}
 const ordersRepository = {
     createOrder,
     getOrders,
     getOrdersByDate,
-    getOrdersById
+    getOrdersById,
+    getOrdersByClient
 };
     
 export default ordersRepository;
