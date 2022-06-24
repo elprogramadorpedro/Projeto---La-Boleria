@@ -12,8 +12,8 @@ async function getOrders() {
   return db.query(`SELECT * FROM orders`);
 }
 
-async function getOrdersByDate(date) {
-  return db.query(`SELECT * FROM orders WHERE "createdAt" = $1`, [date]);
+async function getOrdersByDate(date,date2) {
+  return db.query(`SELECT * FROM orders WHERE "createdAt" >= $1 AND "createdAt" < $2`, [date,date2]);
 }
 
 async function getOrdersById(id) {

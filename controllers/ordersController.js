@@ -29,9 +29,7 @@ export async function createOrders(req, res) {
     }
 }
 export async function getOrder(req, res) {  
-  //const { id } = req.params;
   const { date } = req.query
-  console.log("Date->",date)
   try {
     let allOrders = [];
     let orders = []
@@ -43,13 +41,16 @@ export async function getOrder(req, res) {
       }
       orders = ordersRow.rows;
     }else{
-      const ordersRow = await ordersRepository.getOrdersByDate(date);
+      let proximo = dayjs().add(1, 'day').format(`YYYY-MM-DD`);
+      const ordersRow = await ordersRepository.getOrdersByDate(date,proximo);
       if(ordersRow.rowCount === 0){
         return res.send([]);
       }
       orders = ordersRow.rows;
     }
- 
+
+    
+
     const promiseList = orders.map(async (order) => {
       let cake = await cakesRepository.getCakeById(order.cakeId);
       let client = await clientsRepository.getClientById(order.clientId);
@@ -74,7 +75,6 @@ export async function getOrder(req, res) {
     return res.sendStatus(500); // server error
   }
 }
-
 export async function getOrderById(req, res) {
   const { id } = req.params;
 
