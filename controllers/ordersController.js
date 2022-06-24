@@ -96,7 +96,7 @@ export async function getOrderById(req, res) {
       return res.sendStatus(404); // not found
     }
 
-    res.send({
+    res.status(200).send({
       cake:cake.rows,
       client:client.rows,
       createdAt:order.createdAt,

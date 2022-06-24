@@ -25,7 +25,7 @@ export async function getOrderByClient(req, res) {
       return res.sendStatus(404); // not found
     }
     
-    res.send(orders.rows)
+    res.status(200).send(orders.rows)
   } catch (error) {
     console.log(error);
     return res.sendStatus(500); // server error
